@@ -1,0 +1,88 @@
+package idempotent;
+import java.util.*;
+ 
+public class Idempotent 
+{
+    int mat[][], N;
+    Idempotent()//Default Constructor
+    {
+        mat=new int[0][0];
+         N=0;
+    }
+
+
+    void inputMatrix()
+    {
+        Scanner sc=new Scanner(System.in);
+        System.out.println("Enter size of matrix.");
+        N=sc.nextInt();
+        
+        mat=new int[N][N];
+        System.out.println("Enter the numbers in Matrix");
+        for(int i=0;i<N;i++)
+        {
+            for(int j=0;j<N;j++)
+            {
+                mat[i][j]=sc.nextInt();
+            }
+        }
+        
+        for(int i=0;i<N;i++)
+        {
+            for(int j=0;j<N;j++)
+            {
+                System.out.print(mat[i][j]+" ");
+            }
+            System.out.println();
+        }
+        
+    }
+
+    void check()
+    {
+        int mul[][]=new int[N][N];
+        int sum=0;
+        for(int i=0;i<N;i++)//Finds square of matrix.
+        {
+            for(int j=0;j<N;j++)
+            {
+                for(int k=0;k<N;k++)
+                {
+                    sum=sum+mat[i][k]*mat[k][j];
+                }
+                mul[i][j]=sum;
+                sum=0;
+            }
+        }
+        int flag=0;
+        for(int i=0;i<N;i++)
+        {
+            for(int j=0;j<N;j++)
+            {
+                if(mat[i][j]!=mul[i][j])
+                {
+                    flag=1;
+                    break;
+                }
+            }
+        }
+        if(flag==1)
+        {
+            System.out.println("The matrix is not an Idempotent Matrix.");
+        }
+        else
+        {
+            System.out.println("The matrix is an Idempotent Matrix.");
+        }
+    }
+
+    public static void main(String args[])
+    {
+        Idempotent obj=new Idempotent();
+        obj.inputMatrix();
+        obj.check();
+    }
+}
+   
+
+  
